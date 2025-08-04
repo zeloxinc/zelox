@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMoon, FaSun, FaHome, FaCogs, FaInfoCircle, FaEnvelope } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const Header = ({ darkMode, toggleDarkMode }) => {
@@ -12,13 +12,26 @@ const Header = ({ darkMode, toggleDarkMode }) => {
   }, [location]);
 
   const menuVariants = {
-    hidden: { opacity: 0, x: '-100%' },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    hidden: { opacity: 0, scaleY: 0, transformOrigin: 'top' },
+    visible: {
+      opacity: 1,
+      scaleY: 1,
+      transition: { duration: 0.3, ease: 'easeOut', when: 'beforeChildren', staggerChildren: 0.1 },
+    },
   };
 
   const linkVariants = {
-    hover: { scale: 1.1, color: '#D1D5DB', transition: { duration: 0.3 } },
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    hover: { scale: 1.05, color: '#D1D5DB', transition: { duration: 0.2 } },
   };
+
+  const navLinks = [
+    { name: 'Home', path: '/', icon: <FaHome className="inline-block mr-2" /> },
+    { name: 'Services', path: '/services', icon: <FaCogs className="inline-block mr-2" /> },
+    { name: 'About Us', path: '/about', icon: <FaInfoCircle className="inline-block mr-2" /> },
+    { name: 'Contact', path: '/contact', icon: <FaEnvelope className="inline-block mr-2" /> },
+  ];
 
   return (
     <nav className="bg-[#ffffff] dark:bg-[#000000] fixed w-full z-50 top-0 shadow-lg transition-all duration-300">
@@ -51,24 +64,47 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           </motion.div>
         </div>
 
-        <motion.div
-          className={`md:flex md:items-center md:w-auto ${isOpen ? 'fixed inset-0 bg-[#ffffff] dark:bg-[#000000] flex flex-col justify-center items-center' : 'hidden'}`}
-          variants={menuVariants}
-          initial="hidden"
-          animate={isOpen || window.innerWidth >= 768 ? 'visible' : 'hidden'}
-        >
-          <div className="text-sm md:flex-grow flex flex-col md:flex-row items-center gap-4 md:gap-6">
-            {['Home', 'Services', 'About Us', 'Contact'].map((link) => (
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex md:items-center md:w-auto">
+          <div className="text-sm md:flex-grow flex flex-row items-center gap-6">
+            {navLinks.map((link) => (
               <motion.div
-                key={link}
+                key={link.name}
                 variants={linkVariants}
                 whileHover="hover"
               >
                 <Link
-                  to={link === 'Home' ? '/' : `/${link.toLowerCase().replace(' ', '-')}`}
-                  className="block py-4 md:py-0 md:inline-block text-[#000000] dark:text-[#ffffff] hover:text-[#D1D5DB] transition-colors duration-300 text-xl md:text-base font-medium relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#D1D5DB] after:transition-all after:duration-300 hover:after:w-full"
+                  to={link.path}
+                  className="flex items-center text-[#000000] dark:text-[#ffffff] hover:text-[#D1D5DB] transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#D1D5DB] after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  {link}
+                  {link.icon}
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        <motion.div
+          className={`md:hidden absolute top-full right-0 mt-2 w-64 bg-[#ffffff] dark:bg-[#000000] rounded-lg shadow-xl border border-[#D1D5DB] dark:border-[#4B5563] overflow-hidden ${isOpen ? 'block' : 'hidden'}`}
+          variants={menuVariants}
+          initial="hidden"
+          animate={isOpen ? 'visible' : 'hidden'}
+        >
+          <div className="flex flex-col p-4 gap-2">
+            {navLinks.map((link) => (
+              <motion.div
+                key={link.name}
+                variants={linkVariants}
+                whileHover="hover"
+              >
+                <Link
+                  to={link.path}
+                  className="flex items-center py-2 px-4 text-[#000000] dark:text-[#ffffff] hover:text-[#D1D5DB] transition-colors duration-300 text-base font-medium"
+                >
+                  {link.icon}
+                  {link.name}
                 </Link>
               </motion.div>
             ))}

@@ -35,15 +35,15 @@ const ContactForm = () => {
   };
 
   const contactDetails = [
-    { label: 'Location', value: 'New York, NY', href: null },
-    { label: 'Email', value: 'contact@zelox.com', href: 'mailto:contact@zelox.com' },
-    { label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+    { label: 'Location', value: 'Nairobi Kenya', href: null },
+    { label: 'Email', value: 'zelox@zeloxindustries.com', href: 'mailto:zeloxindustries@gmail.com' },
+    { label: 'Phone', value: '+2541 1209 9003', href: 'tel:+254112099003' },
   ];
 
   const socialLinks = [
-    { platform: 'Twitter', href: '#', icon: <FaTwitter size={24} /> },
-    { platform: 'LinkedIn', href: '#', icon: <FaLinkedin size={24} /> },
-    { platform: 'Facebook', href: '#', icon: <FaFacebook size={24} /> },
+    { platform: 'Twitter', href: 'https://x.com/zeloxIndustries', icon: <FaTwitter size={24} /> },
+    { platform: 'LinkedIn', href: 'https://www.linkedin.com/in/zelox-industries-54124b378/', icon: <FaLinkedin size={24} /> },
+    { platform: 'Facebook', href: 'https://www.instagram.com/zelox_industries/', icon: <FaFacebook size={24} /> },
   ];
 
   return (

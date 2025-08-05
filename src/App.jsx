@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
 import AboutUsSection from './components/AboutUsSection';
 import ContactForm from './components/ContactForm';
+import Shop from './components/Shop';
 import Footer from './components/Footer';
 import ServicePage from './components/ServicePage';
 
@@ -249,13 +250,26 @@ function App() {
             <Route path="/services" element={<ServicesSection />} />
             <Route path="/about" element={<AboutUsSection />} />
             <Route path="/contact" element={<ContactForm />} />
+            <Route
+              path="/shop"
+              element={
+                <motion.div
+                  ref={setSectionRef(4)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <Shop />
+                </motion.div>
+              }
+            />
             {services.map((service, index) => (
               <Route
                 key={service.path}
                 path={service.path}
                 element={
                   <motion.div
-                    ref={setSectionRef(index + 4)}
+                    ref={setSectionRef(index + 5)}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
@@ -283,7 +297,7 @@ function App() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
             </svg>
           </motion.button>

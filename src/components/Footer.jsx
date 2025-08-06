@@ -42,9 +42,9 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               {[
-                { icon: <FaFacebook size={20} />, href: '#' },
-                { icon: <FaTwitter size={20} />, href: '#' },
-                { icon: <FaLinkedin size={20} />, href: '#' },
+                { icon: <FaFacebook size={20} />, href: 'https://www.instagram.com/zelox_industries/' },
+                { icon: <FaTwitter size={20} />, href: 'https://x.com/zeloxIndustries' },
+                { icon: <FaLinkedin size={20} />, href: 'https://www.linkedin.com/in/zelox-industries-54124b378/' },
               ].map((social, index) => (
                 <motion.a
                   key={index}
@@ -85,15 +85,15 @@ const Footer = () => {
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-xl font-bold text-[#ffffff]">Contact Us</h3>
             <ul className="space-y-2 text-[#D1D5DB] text-sm">
-              <li>New York, NY</li>
+              <li>Nairobi Kenya</li>
               <li>
-                <a href="mailto:contact@zelox.com" className="hover:text-[#ffffff] transition-colors duration-300">
+                <a href="mailto:zeloxindustries@gmail.com" className="hover:text-[#ffffff] transition-colors duration-300">
                   contact@zelox.com
                 </a>
               </li>
               <li>
                 <a href="tel:+15551234567" className="hover:text-[#ffffff] transition-colors duration-300">
-                  +1 (555) 123-4567
+                  +2541 1209 9003
                 </a>
               </li>
             </ul>

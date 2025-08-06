@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { testimonials } from '../data/testimonials.jsx';
+import { testimonials } from '../data/Testimonials.jsx';
 
 const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

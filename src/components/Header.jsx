@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaBars, FaTimes, FaMoon, FaSun, FaHome, FaCogs, FaInfoCircle, FaEnvelope, FaShoppingCart } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMoon, FaSun, FaHome, FaCogs, FaInfoCircle, FaEnvelope, FaShoppingCart, FaUsers, FaQuoteLeft } from 'react-icons/fa';
 
 const Header = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  // Close mobile menu on route change
   React.useEffect(() => {
     setIsOpen(false);
   }, [location]);
@@ -28,6 +27,8 @@ const Header = ({ darkMode, toggleDarkMode }) => {
     { name: 'Services', path: '/services', icon: <FaCogs className="inline-block mr-2" /> },
     { name: 'Shop', path: '/shop', icon: <FaShoppingCart className="inline-block mr-2" /> },
     { name: 'About', path: '/about', icon: <FaInfoCircle className="inline-block mr-2" /> },
+    { name: 'Team', path: '/team', icon: <FaUsers className="inline-block mr-2" /> },
+    { name: 'Testimonials', path: '/testimonials', icon: <FaQuoteLeft className="inline-block mr-2" /> },
     { name: 'Contact', path: '/contact', icon: <FaEnvelope className="inline-block mr-2" /> },
   ];
 
@@ -86,31 +87,31 @@ const Header = ({ darkMode, toggleDarkMode }) => {
             ))}
           </motion.div>
         </div>
-      </div>
 
-      {/* Mobile Dropdown Menu */}
-      <motion.div
-        className={`md:hidden absolute top-full left-0 right-0 bg-[#ffffff] dark:bg-[#000000] shadow-xl border-t border-[#D1D5DB] dark:border-[#4B5563] ${isOpen ? 'block' : 'hidden'}`}
-        variants={menuVariants}
-        initial="hidden"
-        animate={isOpen ? 'visible' : 'hidden'}
-      >
-        <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <motion.div key={link.name} variants={linkVariants} whileHover="hover">
-              <Link
-                to={link.path}
-                className="flex items-center py-2 text-[#000000] dark:text-[#ffffff] hover:text-[#D1D5DB] transition-colors duration-300 text-base font-medium"
-                onClick={() => setIsOpen(false)}
-                aria-current={location.pathname === link.path ? 'page' : undefined}
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+        {/* Mobile Dropdown Menu */}
+        <motion.div
+          className={`md:hidden absolute top-full left-0 right-0 bg-[#ffffff] dark:bg-[#000000] shadow-xl border-t border-[#D1D5DB] dark:border-[#4B5563] ${isOpen ? 'block' : 'hidden'}`}
+          variants={menuVariants}
+          initial="hidden"
+          animate={isOpen ? 'visible' : 'hidden'}
+        >
+          <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <motion.div key={link.name} variants={linkVariants} whileHover="hover">
+                <Link
+                  to={link.path}
+                  className="flex items-center py-2 text-[#000000] dark:text-[#ffffff] hover:text-[#D1D5DB] transition-colors duration-300 text-base font-medium"
+                  onClick={() => setIsOpen(false)}
+                  aria-current={location.pathname === link.path ? 'page' : undefined}
+                >
+                  {link.icon}
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </nav>
   );
 };

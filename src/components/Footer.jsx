@@ -1,125 +1,118 @@
-import React from 'react';
-import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { FaTwitter, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 const Footer = () => {
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
-      },
-    },
+  const [email, setEmail] = useState('');
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    alert(`Subscribed with email: ${email}`);
+    setEmail('');
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'Shop', path: '/shop' },
+    { name: 'About', path: '/about' },
+    { name: 'Team', path: '/team' },
+    { name: 'Testimonials', path: '/testimonials' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
-  const hoverVariants = {
-    hover: { scale: 1.1, color: '#D1D5DB', transition: { duration: 0.3 } },
+  const socialLinks = [
+    { name: 'Twitter', href: 'https://twitter.com', icon: <FaTwitter className="h-6 w-6" /> },
+    { name: 'LinkedIn', href: 'https://linkedin.com', icon: <FaTwitter className="h-6 w-6" /> },
+    { name: 'GitHub', href: 'https://github.com', icon: <FaGithub className="h-6 w-6" /> },
+  ];
+
+  const linkVariants = {
+    hover: { scale: 1.05, color: '#D1D5DB', transition: { duration: 0.2 } },
   };
 
   return (
-    <footer className="bg-[#000000] text-[#ffffff] py-12">
+    <footer className="bg-[#ffffff] dark:bg-[#000000] text-[#000000] dark:text-[#ffffff] py-12 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {/* About Section */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="text-xl font-bold text-[#ffffff]">About Zelox</h3>
-            <p className="text-[#D1D5DB] text-sm leading-relaxed">
-              Zelox is dedicated to transforming ideas into innovative digital solutions. From web and mobile development to system design and branding, we deliver excellence.
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Brand Info */}
+          <div>
+            <h3 className="text-2xl font-extrabold mb-4">ZELOX</h3>
+            <p className="text-[#4B5563] dark:text-[#D1D5DB] mb-4">
+              Empowering businesses with innovative digital solutions since 2023.
             </p>
             <div className="flex space-x-4">
-              {[
-                { icon: <FaFacebook size={20} />, href: 'https://www.instagram.com/zelox_industries/' },
-                { icon: <FaTwitter size={20} />, href: 'https://x.com/zeloxIndustries' },
-                { icon: <FaLinkedin size={20} />, href: 'https://www.linkedin.com/in/zelox-industries-54124b378/' },
-              ].map((social, index) => (
+              {socialLinks.map((social) => (
                 <motion.a
-                  key={index}
+                  key={social.name}
                   href={social.href}
-                  variants={hoverVariants}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#D1D5DB] dark:hover:text-[#ffffff] transition-colors duration-300"
+                  aria-label={social.name}
+                  variants={linkVariants}
                   whileHover="hover"
-                  aria-label={`Visit our ${social.icon.type.name}`}
-                  className="text-[#ffffff] hover:text-[#D1D5DB]"
                 >
                   {social.icon}
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Navigation Section */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="text-xl font-bold text-[#ffffff]">Quick Links</h3>
+          {/* Navigation Links */}
+          <div>
+            <h4 className="text-xl font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['Home', 'Services', 'About Us', 'Contact'].map((link) => (
+              {navLinks.map((link) => (
                 <motion.li
-                  key={link}
-                  variants={hoverVariants}
+                  key={link.name}
+                  variants={linkVariants}
                   whileHover="hover"
                 >
-                  <a
-                    href={link === 'Home' ? '/' : `/${link.toLowerCase().replace(' ', '-')}`}
-                    className="text-[#D1D5DB] hover:text-[#ffffff] text-sm transition-colors duration-300"
+                  <Link
+                    to={link.path}
+                    className="text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#D1D5DB] dark:hover:text-[#ffffff] transition-colors duration-300"
+                    aria-label={link.name}
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </motion.li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Contact Section */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <h3 className="text-xl font-bold text-[#ffffff]">Contact Us</h3>
-            <ul className="space-y-2 text-[#D1D5DB] text-sm">
-              <li>Nairobi Kenya</li>
-              <li>
-                <a href="mailto:zeloxindustries@gmail.com" className="hover:text-[#ffffff] transition-colors duration-300">
-                  contact@zelox.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+15551234567" className="hover:text-[#ffffff] transition-colors duration-300">
-                  +2541 1209 9003
-                </a>
-              </li>
-            </ul>
-            <div className="mt-4">
+          {/* Newsletter Signup */}
+          <div>
+            <h4 className="text-xl font-bold mb-4">Stay Updated</h4>
+            <p className="text-[#4B5563] dark:text-[#D1D5DB] mb-4">
+              Subscribe to our newsletter for the latest updates and offers.
+            </p>
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col space-y-2">
               <input
                 type="email"
-                placeholder="Subscribe to our newsletter"
-                className="w-full p-2 border border-[#4B5563] rounded bg-[#000000] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+                className="p-2 border border-[#D1D5DB] dark:border-[#4B5563] rounded focus:outline-none focus:ring-2 focus:ring-[#000000] dark:focus:ring-[#ffffff] bg-[#ffffff] dark:bg-[#000000] text-[#000000] dark:text-[#ffffff]"
+                aria-label="Newsletter email"
               />
               <motion.button
-                className="mt-2 bg-[#ffffff] text-[#000000] px-4 py-2 rounded font-medium hover:bg-[#D1D5DB] transition-all duration-300"
+                type="submit"
+                className="bg-[#000000] dark:bg-[#ffffff] text-[#ffffff] dark:text-[#000000] px-4 py-2 rounded hover:opacity-80 transition-opacity duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label="Subscribe to newsletter"
               >
                 Subscribe
               </motion.button>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          variants={itemVariants}
-          className="mt-8 pt-8 border-t border-[#4B5563] text-center text-[#D1D5DB] text-sm"
-        >
-          <p>© 2025 Zelox. All rights reserved.</p>
-        </motion.div>
+            </form>
+          </div>
+        </div>
+        <div className="mt-8 text-center text-[#4B5563] dark:text-[#D1D5DB]">
+          &copy; {new Date().getFullYear()} Zelox. All rights reserved.
+        </div>
       </div>
     </footer>
   );
